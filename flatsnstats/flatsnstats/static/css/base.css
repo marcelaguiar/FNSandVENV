@@ -1,0 +1,55 @@
+h1 {
+    font-family: 'Indie Flower';
+}
+
+body {
+	background-color: #e6e6e6;
+}
+
+.creator-credit {
+    float: left;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-container {
+    background-color: white;
+    color: #b3b3b3;
+    display: flex;
+    justify-content: center;
+    width:100%;
+}
+
+.footer-content-container {
+    width:80%;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-brand {
+    font-family: 'Indie Flower';
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.site-content {
+  flex: 1;
+}
+
+#body-wrapper {
+    margin: 50px;
+}

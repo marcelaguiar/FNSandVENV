@@ -1,0 +1,6 @@
+Project notes:
+
+- To undo any issues with alignment that may have been caused by sticky footer:
+	Undo this: https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+	aka, remove "class='site'" from body, and remove <main><> tag
+	also delete site and site-content from css
