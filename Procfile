@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT flatsnstats.wsgi:application
+web: waitress-serve --port=$PORT flatsnstats.flatsnstats.wsgi:application
