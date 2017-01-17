@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'flatsnstats.middleware.AuthorizationRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'flatsnstats.urls'
@@ -124,3 +125,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# URLS for middleware redirect purposes
+
+WELCOME_URL = '/welcome/'
+
+AUTHORIZATION_EXEMPT_URLS = (
+    # r'^welcome/$',
+    r'^fastest_segments/$'
+)
