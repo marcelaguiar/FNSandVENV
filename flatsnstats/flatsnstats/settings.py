@@ -134,7 +134,7 @@ STATIC_URL = '/static/'
 WELCOME_URL = '/welcome/'
 
 AUTHORIZATION_EXEMPT_URLS = (
-    # r'^welcome/$',
-    # r'^fastest_segments/$',
-    r'^most_ridden_segments/$',
+    #r'^welcome/$',
+    #r'^fastest_segments/$',
+    #r'^most_ridden_segments/$',
 )
