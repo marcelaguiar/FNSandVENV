@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ceb6e7c9-81c2-4755-b185-b0db30225532" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/admin.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/apps.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/tests.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/views.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/__init__.py" afterPath="$PROJECT_DIR$/flatsnstats/most_ridden_segments/urls.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/flatsnstats/favorite_segments/migrations/__init__.py" afterPath="$PROJECT_DIR$/flatsnstats/most_ridden_segments/templates/most_ridden_segments/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/flatsnstats/settings.py" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py" />
     </list>
     <ignored path="FNSandVENV.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,21 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+            <state relative-caret-position="233">
+              <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -55,11 +55,14 @@
         <option value="$PROJECT_DIR$/flatsnstats/welcome/templates/welcome/index.html" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/middleware.py" />
         <option value="$PROJECT_DIR$/flatsnstats/fastest_segments/templates/fastest_segments/fastest_segments.html" />
-        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html" />
         <option value="$PROJECT_DIR$/flatsnstats/fastest_segments/urls.py" />
-        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py" />
         <option value="$PROJECT_DIR$/flatsnstats/fastest_segments/views.py" />
         <option value="$PROJECT_DIR$/flatsnstats/fastest_segments/templates/fastest_segments/index.html" />
+        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py" />
+        <option value="$PROJECT_DIR$/flatsnstats/most_ridden_segments/templates/most_ridden_segments/index.html" />
+        <option value="$PROJECT_DIR$/flatsnstats/most_ridden_segments/urls.py" />
+        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html" />
+        <option value="$PROJECT_DIR$/flatsnstats/most_ridden_segments/views.py" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/settings.py" />
       </list>
     </option>
@@ -126,24 +129,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="flatsnstats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FNSandVENV" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FNSandVENV" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flatsnstats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="welcome" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -409,49 +394,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/templates/fastest_segments/fastest_segments.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/templates/fastest_segments/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -500,7 +447,7 @@
         <state relative-caret-position="102">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -513,18 +460,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/templates/fastest_segments/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="42" column="80" selection-start-line="42" selection-start-column="80" selection-end-line="42" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/most_ridden_segments/templates/most_ridden_segments/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/most_ridden_segments/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/most_ridden_segments/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flatsnstats/fastest_segments/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <caret line="5" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+        <state relative-caret-position="233">
+          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'welcome',
     'fastest_segments',
+    'most_ridden_segments',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,5 +135,6 @@ WELCOME_URL = '/welcome/'
 
 AUTHORIZATION_EXEMPT_URLS = (
     # r'^welcome/$',
-    r'^fastest_segments/$'
+    # r'^fastest_segments/$',
+    r'^most_ridden_segments/$',
 )
