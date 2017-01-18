@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'flatsnstats',
     'welcome',
     'fastest_segments',
     'most_ridden_segments',
@@ -134,6 +135,7 @@ STATIC_URL = '/static/'
 WELCOME_URL = '/welcome/'
 
 AUTHORIZATION_EXEMPT_URLS = (
+    r'^$',
     #r'^welcome/$',
     #r'^fastest_segments/$',
     #r'^most_ridden_segments/$',
