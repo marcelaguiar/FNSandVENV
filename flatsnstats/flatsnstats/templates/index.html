@@ -5,7 +5,20 @@
 {% block body %}
 <div align="center">
     <!-- Header -->
-    <h1 style="text-align:center;">Home Page</h1>
+    <h1 style="text-align:center;">User Overview</h1>
 </div>
+
+<div class="user-overview">
+    <div class="user-banner">
+        <div style="float: left">
+            <img class="img-circle" src="{% static 'img/placeholder.jpg' %}">
+        </div>
+        <div>
+            <h2 class="name">{{first_name}}</h2>
+            <h2 class="name">{{last_name}}</h2>
+        </div>
+    </div>
+</div>
+
 <img src="" >
 {% endblock %}

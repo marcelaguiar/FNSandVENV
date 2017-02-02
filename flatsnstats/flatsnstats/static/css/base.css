@@ -25,6 +25,17 @@ body {
     width:80%;
 }
 
+.img-circle {
+    border-radius: 50%;
+    zoom: 60%;
+    margin-right: 30px;
+}
+
+.name {
+    float: left;
+    margin-right: 10px;
+}
+
 .navbar {
     border-radius: 0;
 }
