@@ -61,6 +61,10 @@ body {
   flex: 1;
 }
 
+.user-banner {
+  overflow: hidden;
+}
+
 #body-wrapper {
     margin: 50px;
 }
