@@ -5,7 +5,7 @@
 {% block body %}
 <div align="center">
     <!-- Header -->
-    <h1 style="text-align:center;">User Overview</h1>
+    <h1 style="text-align:center;">Flats-n-Stats</h1>
 </div>
 
 <div class="user-overview">
@@ -18,21 +18,13 @@
             <h2 class="name">{{last_name}}</h2>
         </div>
     </div>
-    <div class="widget-wrapper">
+    <div class="widget-container">
         <div class="ride-partners">
             <h4>Top Training Partners</h4>
             <ol>
-                <li>{{training_partners.0}}</li>
-                <li>{{training_partners.1}}</li>
-                <li>{{training_partners.2}}</li>
-                <li>{{training_partners.3}}</li>
-                <li>{{training_partners.4}}</li>
-                <li>{{training_partners.5}}</li>
-                <li>{{training_partners.6}}</li>
-                <li>{{training_partners.7}}</li>
-                <li>{{training_partners.8}}</li>
-                <li>{{training_partners.9}}</li>
-                <!--{% for rider in top_training_partners %}{% endfor %}-->
+            {% for rider in training_partners %}
+                <li>{{rider}}</li>
+            {% endfor %}
             </ol>
         </div>
     </div>

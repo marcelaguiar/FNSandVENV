@@ -33,7 +33,7 @@ def get_access_token(request):
 
 
 def top_training_partners(c):
-    my_dict = {}
+    '''my_dict = {}
 
     for activity in c.get_activities():
         for related_activity in activity.related:
@@ -47,7 +47,9 @@ def top_training_partners(c):
     athlete_list = []
     for person in ten_sorted:
         athlete = c.get_athlete(person[0])
-        athlete_list.append(athlete.firstname + ' ' + athlete.lastname + ' (' + str(person[1]) + ')')
+        athlete_list.append(athlete.firstname + ' ' + athlete.lastname + ' (' + str(person[1]) + ')')'''
+
+    athlete_list = ['test_value (30)', 'test_value (27)', 'test_value (26)', 'test_value (21)']
 
     return athlete_list
 

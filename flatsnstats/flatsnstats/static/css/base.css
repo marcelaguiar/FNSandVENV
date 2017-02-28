@@ -61,10 +61,20 @@ body {
   flex: 1;
 }
 
+.widget-container {
+  /* DarkGray, Gray, DimGray, Silver */
+  border-color: Silver;
+  border-width: 1px;
+  border-radius: 10px;
+  border-style: solid;
+  padding: 0px 12px;
+}
+
 .user-banner {
   overflow: hidden;
+  margin: 0px 0px 10px; 0px;
 }
 
 #body-wrapper {
-    margin: 50px;
+    margin: 20px 50px;
 }
