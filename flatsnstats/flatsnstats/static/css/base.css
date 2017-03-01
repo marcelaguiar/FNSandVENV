@@ -68,6 +68,20 @@ body {
   border-radius: 10px;
   border-style: solid;
   padding: 0px 12px;
+
+}
+.widget-container:hover {
+    box-shadow: 0 0 3px 3px rgba(255, 102, 0, 0.7);
+    background-color: LightGray;
+}
+
+.widget-link {
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: 1;
 }
 
 .user-banner {
