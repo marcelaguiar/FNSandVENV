@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 from stravalib.client import Client
+from flatsnstats.top_training_partners.models import TopTrainingPartners
+import time
 
 
 client = Client()
@@ -33,25 +36,52 @@ def get_access_token(request):
 
 
 def top_training_partners(c):
-    '''my_dict = {}
-
-    for activity in c.get_activities():
-        for related_activity in activity.related:
-            if related_activity.athlete.id in my_dict:
-                my_dict[related_activity.athlete.id] += 1
-            else:
-                my_dict[related_activity.athlete.id] = 1
-
-    ten_sorted = sorted([(k, v) for k, v in my_dict.items()], key=lambda x: x[1], reverse=True)[0:10]
-
     athlete_list = []
-    for person in ten_sorted:
-        athlete = c.get_athlete(person[0])
-        athlete_list.append(athlete.firstname + ' ' + athlete.lastname + ' (' + str(person[1]) + ')')'''
 
-    athlete_list = ['test_value (30)', 'test_value (27)', 'test_value (26)', 'test_value (21)']
+    current_id = c.get_athlete().id
+
+    try:
+        athlete_object = TopTrainingPartners.objects.get(strava_id=current_id)
+        for i in range(1, 11):
+            field = 'partner' + i
+            athlete_list.append(athlete_object.values(field))
+    except ObjectDoesNotExist:
+        my_dict = {}
+        for activity in c.get_activities():
+            for related_activity in activity.related:
+                if related_activity.athlete.id in my_dict:
+                    my_dict[related_activity.athlete.id] += 1
+                else:
+                    my_dict[related_activity.athlete.id] = 1
+
+        ten_sorted = sorted([(k, v) for k, v in my_dict.items()], key=lambda x: x[1], reverse=True)[0:10]
+
+        for person in ten_sorted:
+            athlete = c.get_athlete(person[0])
+            athlete_list.append(athlete.firstname + ' ' + athlete.lastname + ' (' + str(person[1]) + ')')
+
+        t = TopTrainingPartners(strava_id=current_id, authorized=True, last_updated=time.time(),
+                                partner1=list_access_helper(athlete_list, 0),
+                                partner2=list_access_helper(athlete_list, 1),
+                                partner3=list_access_helper(athlete_list, 2),
+                                partner4=list_access_helper(athlete_list, 3),
+                                partner5=list_access_helper(athlete_list, 4),
+                                partner6=list_access_helper(athlete_list, 5),
+                                partner7=list_access_helper(athlete_list, 6),
+                                partner8=list_access_helper(athlete_list, 7),
+                                partner9=list_access_helper(athlete_list, 8),
+                                partner10=list_access_helper(athlete_list, 9))
+        t.save()
 
     return athlete_list
+
+
+def list_access_helper(my_list, my_index):
+    try:
+        b = my_list[my_index]
+    except IndexError:
+        b = None
+    return b
 
 
 def handler404(request):
