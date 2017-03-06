@@ -7,4 +7,15 @@
         <!-- Header -->
         <h1 style="text-align:center;">Top Training Partners</h1>
     </div>
+    <div class="widget-container" style="position:relative">
+        <a href="{% url 'top_training_partners' %}"><span class="widget-link"></span></a>
+        <div class="ride-partners">
+            <h4>Top Training Partners</h4>
+            <ol>
+            {% for rider in training_partners %}
+                <li>{{rider}}</li>
+            {% endfor %}
+            </ol>
+        </div>
+    </div>
 {% endblock %}

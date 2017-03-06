@@ -134,7 +134,7 @@ WELCOME_URL = '/welcome/'
 AUTHORIZATION_EXEMPT_URLS = (
     r'^$',
     r'^welcome/$',
-    r'^top_training_partners$',
+    r'^top_training_partners/$',
     r'^fastest_segments/$',
     r'^most_ridden_segments/$',
 )

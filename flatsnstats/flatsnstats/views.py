@@ -6,12 +6,13 @@ import time
 
 
 client = Client()
+athlete = None
+athlete_authorized = False
 
 
 def home(request):
-    access_token = get_access_token(request)
-    client.access_token = access_token
-    athlete = client.get_athlete()
+    if athlete_authorized is False:
+        set_global_athlete(request)
 
     sorted_partner_list = calc_top_training_partners(client)
 
@@ -35,7 +36,18 @@ def most_ridden_segments(request):
 
 
 def top_training_partners(request):
-    return render(request, 'top_training_partners/index.html')
+
+    sorted_partner_list = calc_top_training_partners(client)
+
+    athlete_data = {
+        'id': athlete.id,
+        'first_name': athlete.firstname,
+        'last_name': athlete.lastname,
+        'profile_picture': athlete.profile,
+        'training_partners': sorted_partner_list
+    }
+
+    return render(request, 'top_training_partners/index.html', athlete_data)
 
 
 def welcome(request):
@@ -49,6 +61,14 @@ def get_access_token(request):
     access_token = client.exchange_code_for_token(client_id=client_id, client_secret=client_secret, code=access_code)
 
     return access_token
+
+
+def set_global_athlete(request):
+    global athlete
+    global athlete_authorized
+    client.access_token = get_access_token(request)
+    athlete = client.get_athlete()
+    athlete_authorized = True
 
 
 def calc_top_training_partners(c):
@@ -73,8 +93,8 @@ def calc_top_training_partners(c):
         ten_sorted = sorted([(k, v) for k, v in my_dict.items()], key=lambda x: x[1], reverse=True)[0:10]
 
         for person in ten_sorted:
-            athlete = c.get_athlete(person[0])
-            athlete_list.append(athlete.firstname + ' ' + athlete.lastname + ' (' + str(person[1]) + ')')
+            partner = c.get_athlete(person[0])
+            athlete_list.append(partner.firstname + ' ' + partner.lastname + ' (' + str(person[1]) + ')')
 
         t = TopTrainingPartners(strava_id=current_id, authorized=True, last_updated=time.time(),
                                 partner1=list_access_helper(athlete_list, 0),
