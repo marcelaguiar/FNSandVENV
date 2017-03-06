@@ -1,19 +1,19 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from stravalib.client import Client
-from flatsnstats.top_training_partners.models import TopTrainingPartners
+from .models import TopTrainingPartners
 import time
 
 
 client = Client()
 
 
-def index(request):
+def home(request):
     access_token = get_access_token(request)
     client.access_token = access_token
     athlete = client.get_athlete()
 
-    sorted_partner_list = top_training_partners(client)
+    sorted_partner_list = calc_top_training_partners(client)
 
     athlete_data = {
         'id': athlete.id,
@@ -26,6 +26,22 @@ def index(request):
     return render(request, 'index.html', athlete_data)
 
 
+def fastest_segments(request):
+    return render(request, 'fastest_segments/index.html')
+
+
+def most_ridden_segments(request):
+    return render(request, 'most_ridden_segments/index.html')
+
+
+def top_training_partners(request):
+    return render(request, 'top_training_partners/index.html')
+
+
+def welcome(request):
+    return render(request, 'welcome/index.html')
+
+
 def get_access_token(request):
     client_id = 15675
     client_secret = 'ada13b288862d04f79f6686f84d1ef3127cda3ef'
@@ -35,7 +51,7 @@ def get_access_token(request):
     return access_token
 
 
-def top_training_partners(c):
+def calc_top_training_partners(c):
     athlete_list = []
 
     current_id = c.get_athlete().id
@@ -43,8 +59,8 @@ def top_training_partners(c):
     try:
         athlete_object = TopTrainingPartners.objects.get(strava_id=current_id)
         for i in range(1, 11):
-            field = 'partner' + i
-            athlete_list.append(athlete_object.values(field))
+            field = 'partner' + str(i)
+            athlete_list.append(getattr(athlete_object, field))
     except ObjectDoesNotExist:
         my_dict = {}
         for activity in c.get_activities():

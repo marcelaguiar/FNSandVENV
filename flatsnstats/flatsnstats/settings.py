@@ -37,10 +37,6 @@ ALLOWED_HOSTS = ['127.0.0.1', '127.0.0.1:8000']
 
 INSTALLED_APPS = [
     'flatsnstats',
-    'welcome',
-    'top_training_partners.apps.TopTrainingPartnersConfig',
-    'fastest_segments',
-    'most_ridden_segments',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,8 +133,8 @@ WELCOME_URL = '/welcome/'
 
 AUTHORIZATION_EXEMPT_URLS = (
     r'^$',
-    #r'^welcome/$',
+    r'^welcome/$',
     r'^top_training_partners$',
-    #r'^fastest_segments/$',
-    #r'^most_ridden_segments/$',
+    r'^fastest_segments/$',
+    r'^most_ridden_segments/$',
 )

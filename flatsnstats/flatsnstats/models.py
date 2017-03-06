@@ -2,7 +2,7 @@ from django.db import models
 
 
 class TopTrainingPartners(models.Model):
-    strava_id = models.IntegerField()
+    strava_id = models.IntegerField(default=0)
     authorized = models.BooleanField()
     last_updated = models.DateTimeField(auto_now=True)
     partner1 = models.CharField(max_length=100)
