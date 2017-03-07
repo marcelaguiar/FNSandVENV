@@ -126,15 +126,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STRAVA_AUTH_URL = 'https://www.strava.com/oauth/authorize?client_id=15675&response_type=code' \
+                  '&redirect_uri=http://127.0.0.1:8000/temporary_redirect/&approval_prompt=auto'
 
 # URLS for middleware redirect purposes
 
 WELCOME_URL = '/welcome/'
 
+WELCOME_REDIRECT_URL = '/'
+
 AUTHORIZATION_EXEMPT_URLS = (
-    r'^$',
+    # r'^$',
     r'^welcome/$',
-    r'^top_training_partners/$',
-    r'^fastest_segments/$',
-    r'^most_ridden_segments/$',
+    r'^strava_site/$',
+    r'^temporary_redirect/$',
+    # r'^top_training_partners/$',
+    # r'^fastest_segments/$',
+    # r'^most_ridden_segments/$',
 )

@@ -1,19 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from stravalib.client import Client
-from .models import TopTrainingPartners
+from .models import TopTrainingPartners, Users
 import time
 
 
 client = Client()
 athlete = None
-athlete_authorized = False
+user_authorized = False
+
+
+def strava_site(request):
+    return redirect(settings.STRAVA_AUTH_URL)
 
 
 def home(request):
-    if athlete_authorized is False:
-        set_global_athlete(request)
-
     sorted_partner_list = calc_top_training_partners(client)
 
     athlete_data = {
@@ -65,10 +67,23 @@ def get_access_token(request):
 
 def set_global_athlete(request):
     global athlete
-    global athlete_authorized
+    global user_authorized
     client.access_token = get_access_token(request)
     athlete = client.get_athlete()
-    athlete_authorized = True
+    user_authorized = True
+
+    # update database
+    # Maybe put a check here to only do this if the user DOESN'T exist!!!
+    current_id = athlete.id
+    u = Users(strava_id=current_id, authorized=True)
+    u.save()
+
+
+def temporary_redirect(request):
+    if user_authorized is False:
+        set_global_athlete(request)
+
+    return redirect('/')
 
 
 def calc_top_training_partners(c):
@@ -96,7 +111,7 @@ def calc_top_training_partners(c):
             partner = c.get_athlete(person[0])
             athlete_list.append(partner.firstname + ' ' + partner.lastname + ' (' + str(person[1]) + ')')
 
-        t = TopTrainingPartners(strava_id=current_id, authorized=True, last_updated=time.time(),
+        t = TopTrainingPartners(strava_id=current_id, last_updated=time.time(),
                                 partner1=list_access_helper(athlete_list, 0),
                                 partner2=list_access_helper(athlete_list, 1),
                                 partner3=list_access_helper(athlete_list, 2),

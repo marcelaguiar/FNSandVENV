@@ -3,6 +3,7 @@ import re
 from django.conf import settings
 from django.shortcuts import redirect
 
+
 EXEMPT_URLS = [re.compile(settings.WELCOME_URL.lstrip('/'))]
 if hasattr(settings, 'AUTHORIZATION_EXEMPT_URLS'):
     EXEMPT_URLS += [re.compile(url) for url in settings.AUTHORIZATION_EXEMPT_URLS]
@@ -18,14 +19,15 @@ class AuthorizationRequiredMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         assert hasattr(request, 'user')
+
         path = request.path_info.lstrip('/')
-        print(path)
+        # print(path)
 
         url_is_exempt = any(url.match(path) for url in EXEMPT_URLS)
 
-        if request.user.is_authenticated() and url_is_exempt:
+        if False and url_is_exempt:
             return redirect(settings.WELCOME_REDIRECT_URL)
-        elif request.user.is_authenticated() or url_is_exempt:
+        elif False or url_is_exempt:
             return None
         else:
             return redirect(settings.WELCOME_URL)
