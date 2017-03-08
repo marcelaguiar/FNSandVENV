@@ -78,6 +78,8 @@ def set_global_athlete(request):
     u = Users(strava_id=current_id, authorized=True)
     u.save()
 
+    settings.AUTHORIZED = True
+
 
 def temporary_redirect(request):
     if user_authorized is False:

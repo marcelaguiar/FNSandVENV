@@ -144,3 +144,5 @@ AUTHORIZATION_EXEMPT_URLS = (
     # r'^fastest_segments/$',
     # r'^most_ridden_segments/$',
 )
+
+AUTHORIZED = False

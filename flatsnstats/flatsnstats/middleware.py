@@ -21,13 +21,14 @@ class AuthorizationRequiredMiddleware:
         assert hasattr(request, 'user')
 
         path = request.path_info.lstrip('/')
-        # print(path)
 
         url_is_exempt = any(url.match(path) for url in EXEMPT_URLS)
 
-        if False and url_is_exempt:
+        print(settings.AUTHORIZED)
+
+        if settings.AUTHORIZED and url_is_exempt:
             return redirect(settings.WELCOME_REDIRECT_URL)
-        elif False or url_is_exempt:
+        elif settings.AUTHORIZED or url_is_exempt:
             return None
         else:
             return redirect(settings.WELCOME_URL)
