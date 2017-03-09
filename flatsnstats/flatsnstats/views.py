@@ -7,8 +7,7 @@ import time
 
 
 client = Client()
-athlete = None
-user_authorized = False
+current_athlete = None
 
 
 def strava_site(request):
@@ -19,10 +18,10 @@ def home(request):
     sorted_partner_list = calc_top_training_partners(client)
 
     athlete_data = {
-        'id': athlete.id,
-        'first_name': athlete.firstname,
-        'last_name': athlete.lastname,
-        'profile_picture': athlete.profile,
+        'id': current_athlete.id,
+        'first_name': current_athlete.firstname,
+        'last_name': current_athlete.lastname,
+        'profile_picture': current_athlete.profile,
         'training_partners': sorted_partner_list
     }
 
@@ -42,10 +41,10 @@ def top_training_partners(request):
     sorted_partner_list = calc_top_training_partners(client)
 
     athlete_data = {
-        'id': athlete.id,
-        'first_name': athlete.firstname,
-        'last_name': athlete.lastname,
-        'profile_picture': athlete.profile,
+        'id': current_athlete.id,
+        'first_name': current_athlete.firstname,
+        'last_name': current_athlete.lastname,
+        'profile_picture': current_athlete.profile,
         'training_partners': sorted_partner_list
     }
 
@@ -66,25 +65,35 @@ def get_access_token(request):
 
 
 def set_global_athlete(request):
-    global athlete
-    global user_authorized
+    global current_athlete
     client.access_token = get_access_token(request)
-    athlete = client.get_athlete()
-    user_authorized = True
+    current_athlete = client.get_athlete()
+    current_id = current_athlete.id
 
-    # update database
-    # Maybe put a check here to only do this if the user DOESN'T exist!!!
-    current_id = athlete.id
-    u = Users(strava_id=current_id, authorized=True)
-    u.save()
+    try:
+        user_object = Users.objects.get(strava_id=current_id)
+        user_authorized = getattr(user_object, "authorized")
+        print('We checked if the user model had "authorized" field')
+    except ObjectDoesNotExist:
+        # Add to database
+        u = Users(strava_id=current_id, first_name=current_athlete.firstname, last_name=current_athlete.lastname, authorized=True)
+        u.save()
+
+        user_authorized = True
+
+    print('user_authorized: ' + str(user_authorized))
 
     settings.AUTHORIZED = True
 
+    if user_authorized is False:
+        # Update authorized field in database
+        u = Users.objects.filter(strava_id=current_id)
+        u.authorized = True
+        u.save()
+
 
 def temporary_redirect(request):
-    if user_authorized is False:
-        set_global_athlete(request)
-
+    set_global_athlete(request)
     return redirect('/')
 
 
