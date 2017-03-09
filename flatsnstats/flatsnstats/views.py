@@ -8,6 +8,7 @@ import time
 
 client = Client()
 current_athlete = None
+current_id = None
 
 
 def strava_site(request):
@@ -40,12 +41,20 @@ def top_training_partners(request):
 
     sorted_partner_list = calc_top_training_partners(client)
 
+    try:
+        ttp_object = TopTrainingPartners.objects.get(strava_id=current_id)
+        last_updated = getattr(ttp_object, "last_updated")
+    except ObjectDoesNotExist:
+        last_updated = 'unknown'
+        print('TTP: Could not find user in database')
+
     athlete_data = {
         'id': current_athlete.id,
         'first_name': current_athlete.firstname,
         'last_name': current_athlete.lastname,
         'profile_picture': current_athlete.profile,
-        'training_partners': sorted_partner_list
+        'training_partners': sorted_partner_list,
+        'last_updated': last_updated
     }
 
     return render(request, 'top_training_partners/index.html', athlete_data)
@@ -66,6 +75,7 @@ def get_access_token(request):
 
 def set_global_athlete(request):
     global current_athlete
+    global current_id
     client.access_token = get_access_token(request)
     current_athlete = client.get_athlete()
     current_id = current_athlete.id
@@ -99,8 +109,6 @@ def temporary_redirect(request):
 
 def calc_top_training_partners(c):
     athlete_list = []
-
-    current_id = c.get_athlete().id
 
     try:
         athlete_object = TopTrainingPartners.objects.get(strava_id=current_id)
