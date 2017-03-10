@@ -83,15 +83,12 @@ def set_global_athlete(request):
     try:
         user_object = Users.objects.get(strava_id=current_id)
         user_authorized = getattr(user_object, "authorized")
-        print('We checked if the user model had "authorized" field')
     except ObjectDoesNotExist:
         # Add to database
         u = Users(strava_id=current_id, first_name=current_athlete.firstname, last_name=current_athlete.lastname, authorized=True)
         u.save()
 
         user_authorized = True
-
-    print('user_authorized: ' + str(user_authorized))
 
     settings.AUTHORIZED = True
 

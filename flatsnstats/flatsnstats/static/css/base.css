@@ -52,6 +52,16 @@ body {
     float: right;
 }
 
+.tool-container {
+  background-color: #f2f2f2;
+  border-color: Silver;
+  border-width: 1px;
+  border-radius: 10px;
+  border-style: solid;
+  padding: 1px 12px 0px 12px;
+  box-sizing: border-box;
+}
+
 .site {
   display: flex;
   min-height: 100vh;

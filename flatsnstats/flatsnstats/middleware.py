@@ -24,8 +24,6 @@ class AuthorizationRequiredMiddleware:
 
         url_is_exempt = any(url.match(path) for url in EXEMPT_URLS)
 
-        print(settings.AUTHORIZED)
-
         if settings.AUTHORIZED and url_is_exempt:
             return redirect(settings.WELCOME_REDIRECT_URL)
         elif settings.AUTHORIZED or url_is_exempt:
