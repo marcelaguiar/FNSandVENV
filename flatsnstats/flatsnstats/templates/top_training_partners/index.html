@@ -18,25 +18,9 @@
         </div>
         <div class="update">
             <div>
-                <button id="update_tpp" type="button" class="btn btn-default">Update</button>
-                <script type="text/javascript">
-                    $(document).ready(function(){
-                        $("#update_tpp").click(function(e){
-                            e.preventDefault();
-
-                            $.ajax({
-                                type:'POST',
-                                url:'/',
-                                data:{
-                                    name:$('#name').val(),
-                                },
-                                success:function(){
-
-                                }
-                            })
-                        });
-                    });
-                </script>
+                <a href="{% url 'top_training_partners' %}">
+                    <button id="update_tpp" type="button" class="btn btn-default" name="button_clicked" >Update</button>
+                </a>
             </div>
             <div class="last-updated">
                 last updated: {{last_updated}}

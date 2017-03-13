@@ -37,30 +37,6 @@ def most_ridden_segments(request):
     return render(request, 'most_ridden_segments/index.html')
 
 
-def top_training_partners(request):
-    if request.method == 'POST':
-        update_top_training_partners(request)
-    else:
-        sorted_partner_list = compile_top_training_partners(client)
-        try:
-            ttp_object = TopTrainingPartners.objects.get(strava_id=current_id)
-            last_updated = getattr(ttp_object, "last_updated")
-        except ObjectDoesNotExist:
-            last_updated = 'unknown'
-            print('TTP: Could not find user in database')
-
-        athlete_data = {
-            'id': current_athlete.id,
-            'first_name': current_athlete.firstname,
-            'last_name': current_athlete.lastname,
-            'profile_picture': current_athlete.profile,
-            'training_partners': sorted_partner_list,
-            'last_updated': last_updated
-        }
-
-        return render(request, 'top_training_partners/index.html', athlete_data)
-
-
 def welcome(request):
     return render(request, 'welcome/index.html')
 
@@ -86,7 +62,10 @@ def set_global_athlete(request):
         user_authorized = getattr(user_object, "authorized")
     except ObjectDoesNotExist:
         # Add to database
-        u = Users(strava_id=current_id, first_name=current_athlete.firstname, last_name=current_athlete.lastname, authorized=True)
+        u = Users(strava_id=current_id,
+                  first_name=current_athlete.firstname,
+                  last_name=current_athlete.lastname,
+                  authorized=True)
         u.save()
 
         user_authorized = True
@@ -105,6 +84,23 @@ def temporary_redirect(request):
     return redirect('/')
 
 
+def top_training_partners(request):
+    if request.POST.get('button_click'):
+        print("LLLLLLMAO")
+        athlete_data = update_top_training_partners(request)
+    else:
+        athlete_data = {
+            'id': current_athlete.id,
+            'first_name': current_athlete.firstname,
+            'last_name': current_athlete.lastname,
+            'profile_picture': current_athlete.profile,
+            'training_partners': compile_top_training_partners(client),
+            'last_updated': get_last_updated(current_id)
+        }
+
+    return render(request, 'top_training_partners/index.html', athlete_data)
+
+
 def compile_top_training_partners(c):
     athlete_list = []
 
@@ -119,6 +115,7 @@ def compile_top_training_partners(c):
 
 
 def calc_top_training_partners(c):
+    # TODO: Add Progress bar for calc function
     my_dict = {}
     athlete_list = []
 
@@ -152,14 +149,13 @@ def calc_top_training_partners(c):
 
 
 def update_top_training_partners(request):
+    # TODO: Calculate activities after certain date
+    # 1. Get current top 10 as {strava_id:number_of_related_activities}
+    # 2. Get last_updated
+    # 3. Calculate activities after last_updated, and add to
 
+    # Recalculate from scratch
     sorted_partner_list = calc_top_training_partners(client)
-    try:
-        ttp_object = TopTrainingPartners.objects.get(strava_id=current_id)
-        last_updated = getattr(ttp_object, "last_updated")
-    except ObjectDoesNotExist:
-        last_updated = 'unknown'
-        print('TTP: Could not find user in database')
 
     athlete_data = {
         'id': current_athlete.id,
@@ -167,10 +163,20 @@ def update_top_training_partners(request):
         'last_name': current_athlete.lastname,
         'profile_picture': current_athlete.profile,
         'training_partners': sorted_partner_list,
-        'last_updated': last_updated
+        'last_updated': get_last_updated(current_id)
     }
 
-    return render(request, 'top_training_partners/index.html', athlete_data)
+    return athlete_data
+
+
+def get_last_updated(user_id):
+    try:
+        db_object = TopTrainingPartners.objects.get(strava_id=user_id)
+        last_updated = getattr(db_object, "last_updated")
+    except ObjectDoesNotExist:
+        last_updated = 'unknown'
+        print('Could not find user in database')
+    return last_updated
 
 
 def list_access_helper(my_list, my_index):
