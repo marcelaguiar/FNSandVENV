@@ -85,28 +85,25 @@ def temporary_redirect(request):
 
 
 def top_training_partners(request):
-    if request.POST.get('button_click'):
-        athlete_data = update_top_training_partners()
-    else:
-        athlete_data = {
-            'id': current_athlete.id,
-            'first_name': current_athlete.firstname,
-            'last_name': current_athlete.lastname,
-            'profile_picture': current_athlete.profile,
-            'training_partners': calc_top_training_partners(client),
-            'last_updated': get_last_updated(current_id)
-        }
+
+    athlete_data = {
+        'id': current_athlete.id,
+        'first_name': current_athlete.firstname,
+        'last_name': current_athlete.lastname,
+        'profile_picture': current_athlete.profile,
+        'training_partners': calc_top_training_partners(client),
+        'last_updated': get_last_updated(current_id)
+    }
 
     return render(request, 'top_training_partners/index.html', athlete_data)
 
 
 def calc_top_training_partners(c):
+
     # TODO: Add Progress bar for calc function
-    my_dict = {}
     athlete_list = []
 
     try:
-        # TODO: FIGURE OUT WHAT TO SET last_updated TO
         user_object = Users.objects.get(strava_id=current_id)
         last_updated = getattr(user_object, "ttp_last_updated")
     except ObjectDoesNotExist:
@@ -140,27 +137,23 @@ def calc_top_training_partners(c):
 
     ttp_qs = Relationship.objects.filter(user1=current_id).order_by('-ra_count')[:850]
 
+    athlete_num = 1
+
+    # TODO: get_athlete() hanging on: 38, 78, 118, 158, 198, etc....
     for relationship in ttp_qs:
+        start = datetime.datetime.utcnow().isoformat()
+        print('start: ' + str(start))
+        print('getting athlete #' + str(athlete_num))
+
         partner = c.get_athlete(relationship.user2)
+
+        end = datetime.datetime.utcnow().isoformat()
+        print('end:   ' + str(end))
+
         athlete_list.append(partner.firstname + ' ' + partner.lastname + ' (' + str(relationship.ra_count) + ')')
+        athlete_num += 1
 
     return athlete_list
-
-
-def update_top_training_partners():
-    # Recalculate from scratch
-    sorted_partner_list = calc_top_training_partners(client)
-
-    athlete_data = {
-        'id': current_athlete.id,
-        'first_name': current_athlete.firstname,
-        'last_name': current_athlete.lastname,
-        'profile_picture': current_athlete.profile,
-        'training_partners': sorted_partner_list,
-        'last_updated': get_last_updated(current_id)
-    }
-
-    return athlete_data
 
 
 def get_last_updated(user_id):
