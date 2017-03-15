@@ -15,6 +15,8 @@ class Users(models.Model):
 class Relationship(models.Model):
     user1 = models.IntegerField(default=0)
     user2 = models.IntegerField(default=0)
+    first_name = models.CharField(max_length=100, default='')
+    last_name = models.CharField(max_length=100, default='')
     ra_count = models.IntegerField(default=0)
 
     def __str__(self):

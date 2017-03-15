@@ -112,15 +112,21 @@ def calc_top_training_partners(c):
 
     for activity in c.get_activities(after=last_updated):
         for related_activity in activity.related:
-            training_partner_id = related_activity.athlete.id
+            partner_id = related_activity.athlete.id
+            partner_fn = related_activity.athlete.firstname
+            partner_ln = related_activity.athlete.lastname
 
             # Update or create Relationship in db (maybe switch to update_or_create)
             try:
-                db_object = Relationship.objects.get(user1=current_id, user2=training_partner_id)
+                db_object = Relationship.objects.get(user1=current_id, user2=partner_id)
                 db_object.ra_count = F("ra_count") + 1
                 db_object.save(update_fields=['ra_count'])
             except Relationship.DoesNotExist:
-                r = Relationship(user1=current_id, user2=training_partner_id, ra_count=1)
+                r = Relationship(user1=current_id,
+                                 user2=partner_id,
+                                 first_name=partner_fn,
+                                 last_name=partner_ln,
+                                 ra_count=1)
                 r.save()
             except Relationship.MultipleObjectsReturned:
                 print("ERROR: Marcel, Why are there repeat partner pairs!?!?!? ")
@@ -135,23 +141,10 @@ def calc_top_training_partners(c):
     except Relationship.MultipleObjectsReturned:
         print('ERROR: Well this is awkward, this shouldnt have happened. #2')
 
-    ttp_qs = Relationship.objects.filter(user1=current_id).order_by('-ra_count')[:850]
+    ttp_qs = Relationship.objects.filter(user1=current_id).order_by('-ra_count')[:1000]
 
-    athlete_num = 1
-
-    # TODO: get_athlete() hanging on: 38, 78, 118, 158, 198, etc....
-    for relationship in ttp_qs:
-        start = datetime.datetime.utcnow().isoformat()
-        print('start: ' + str(start))
-        print('getting athlete #' + str(athlete_num))
-
-        partner = c.get_athlete(relationship.user2)
-
-        end = datetime.datetime.utcnow().isoformat()
-        print('end:   ' + str(end))
-
-        athlete_list.append(partner.firstname + ' ' + partner.lastname + ' (' + str(relationship.ra_count) + ')')
-        athlete_num += 1
+    for partner in ttp_qs:
+        athlete_list.append(partner.first_name + ' ' + partner.last_name + ' (' + str(partner.ra_count) + ')')
 
     return athlete_list
 
@@ -164,14 +157,6 @@ def get_last_updated(user_id):
         last_updated = 'unknown'
         print('Could not find user in database')
     return last_updated
-
-
-def list_access_helper(my_list, my_index):
-    try:
-        b = my_list[my_index]
-    except IndexError:
-        b = None
-    return b
 
 
 def handler404(request):
