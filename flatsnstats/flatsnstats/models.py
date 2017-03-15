@@ -7,7 +7,7 @@ class Users(models.Model):
     first_name = models.CharField(max_length=100, default='')
     last_name = models.CharField(max_length=100, default='')
     authorized = models.BooleanField(default=False)
-    ttp_last_updated = models.DateTimeField(auto_now=False, default=None)
+    ttp_last_updated = models.DateTimeField(auto_now=False, default="2000-01-01T00:00:00Z")
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name + ' (' + str(self.strava_id) + "): " + str(self.authorized)
