@@ -1,3 +1,4 @@
+from dateutil import tz
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -22,7 +23,7 @@ def home(request):
         'first_name': current_athlete.firstname,
         'last_name': current_athlete.lastname,
         'profile_picture': current_athlete.profile,
-        'training_partners': calc_top_training_partners(client)
+        'training_partners': calc_top_training_partners(client, 10)
     }
 
     return render(request, 'index.html', athlete_data)
@@ -91,14 +92,14 @@ def top_training_partners(request):
         'first_name': current_athlete.firstname,
         'last_name': current_athlete.lastname,
         'profile_picture': current_athlete.profile,
-        'training_partners': calc_top_training_partners(client),
+        'training_partners': calc_top_training_partners(client, 1000),
         'last_updated': get_last_updated(current_id)
     }
 
     return render(request, 'top_training_partners/index.html', athlete_data)
 
 
-def calc_top_training_partners(c):
+def calc_top_training_partners(c, num_results):
 
     # TODO: Add Progress bar for calc function
     athlete_list = []
@@ -107,7 +108,7 @@ def calc_top_training_partners(c):
         user_object = Users.objects.get(strava_id=current_id)
         last_updated = getattr(user_object, "ttp_last_updated")
     except ObjectDoesNotExist:
-        print("ERROR: User doesn't exist. Look into this!!!!!!!!! ")
+        print("ERROR: User doesn't exist. Look into this!")
         return None
 
     for activity in c.get_activities(after=last_updated):
@@ -129,7 +130,7 @@ def calc_top_training_partners(c):
                                  ra_count=1)
                 r.save()
             except Relationship.MultipleObjectsReturned:
-                print("ERROR: Marcel, Why are there repeat partner pairs!?!?!? ")
+                print("ERROR: Marcel, Why are there repeat partner pairs?!")
 
     # Update User.tpp_last_updated
     try:
@@ -141,7 +142,7 @@ def calc_top_training_partners(c):
     except Relationship.MultipleObjectsReturned:
         print('ERROR: Well this is awkward, this shouldnt have happened. #2')
 
-    ttp_qs = Relationship.objects.filter(user1=current_id).order_by('-ra_count')[:1000]
+    ttp_qs = Relationship.objects.filter(user1=current_id).order_by('-ra_count')[:num_results]
 
     for partner in ttp_qs:
         athlete_list.append(partner.first_name + ' ' + partner.last_name + ' (' + str(partner.ra_count) + ')')
@@ -155,8 +156,21 @@ def get_last_updated(user_id):
         last_updated = getattr(db_object, "ttp_last_updated")
     except ObjectDoesNotExist:
         last_updated = 'unknown'
-        print('Could not find user in database')
+        print('ERROR: Could not find user in database')
     return last_updated
+
+
+def local_tz_convert(utc_datetime):
+    # Auto-detect zones:
+    from_zone = tz.tzutc()
+    to_zone = tz.tzlocal()
+
+    processed_time = str(utc_datetime).split(".")[0]
+    utc = datetime.datetime.strptime(processed_time, '%Y-%m-%d %H:%M:%S')
+    utc = utc.replace(tzinfo=from_zone)
+    local_time = utc.astimezone(to_zone)
+
+    return local_time
 
 
 def handler404(request):
