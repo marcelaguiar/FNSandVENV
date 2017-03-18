@@ -42,8 +42,8 @@ def welcome(request):
 
 
 def get_access_token(request):
-    client_id = 15675
-    client_secret = 'ada13b288862d04f79f6686f84d1ef3127cda3ef'
+    client_id = settings.CLIENT_ID
+    client_secret = settings.CLIENT_SECRET
     access_code = request.GET.get('code')
     access_token = client.exchange_code_for_token(client_id=client_id, client_secret=client_secret, code=access_code)
 

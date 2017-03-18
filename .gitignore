@@ -3,3 +3,4 @@ env
 staticfiles
 errorlog.txt
 .env
+flatsnstats/flatsnstats/settings.py
