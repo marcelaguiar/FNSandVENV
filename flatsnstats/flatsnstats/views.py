@@ -23,7 +23,7 @@ def home(request):
         'first_name': current_athlete.firstname,
         'last_name': current_athlete.lastname,
         'profile_picture': current_athlete.profile,
-        'training_partners': calc_top_training_partners(client, 10)
+        'training_partners': calc_top_training_partners(client, 9)
     }
 
     return render(request, 'index.html', athlete_data)
