@@ -80,7 +80,7 @@ body {
   font-size: small;
 }
 
-.widget-container {
+.widget {
   /* DarkGray, Gray, DimGray, Silver */
   background-color: #f2f2f2;
   border-color: Silver;
@@ -88,9 +88,12 @@ body {
   border-radius: 10px;
   border-style: solid;
   padding: 0px 12px;
-
+  width: 32%;
+  margin: 0% 1% 1% 0%;
+  float: left;
 }
-.widget-container:hover {
+
+.widget:hover {
   box-shadow: 0 0 3px 3px rgba(255, 102, 0, 0.7);
   background-color: LightGray;
 }
@@ -102,6 +105,12 @@ body {
   top:0;
   left: 0;
   z-index: 1;
+}
+
+.widgets-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .user-banner {
