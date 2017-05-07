@@ -37,6 +37,28 @@ def most_ridden_segments(request):
     return render(request, 'most_ridden_segments/index.html')
 
 
+def race_statistics(request):
+    race_data = calc_race_data()
+
+    return render(request, 'race_statistics/index.html', race_data)
+
+
+def calc_race_data():
+    total_distance = 0
+    total_races = 0
+    race_list = []
+
+    # TODO: Calc everything right here
+
+    return_dict = {
+        'total_race_mileage': total_distance,
+        'num_races': total_races,
+        'race_list': race_list
+    }
+
+    return return_dict
+
+
 def welcome(request):
     return render(request, 'welcome/index.html')
 
