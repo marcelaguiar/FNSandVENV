@@ -44,11 +44,18 @@ def race_statistics(request):
 
 
 def calc_race_data():
-    total_distance = 0
-    total_races = 0
+    total_distance = 0.0
+    total_races = 0  # off-by-one? Maybe change to 1. But doesnt make sense.
     race_list = []
 
-    # TODO: Calc everything right here
+    for activity in client.get_activities():
+        if activity.workout_type == '11':
+            total_distance += float(activity.distance)
+            total_races += 1
+            race_list.append(activity.name)
+
+    # Convert distance from meters to miles and round
+    total_distance = float("{0:.2f}".format(total_distance / 1609.34))
 
     return_dict = {
         'total_race_mileage': total_distance,
@@ -121,6 +128,7 @@ def top_training_partners(request):
     return render(request, 'top_training_partners/index.html', athlete_data)
 
 
+# TODO: Probably shouldn't even have to pass in client (c)
 def calc_top_training_partners(c, num_results):
 
     # TODO: Add Progress bar for calc function
