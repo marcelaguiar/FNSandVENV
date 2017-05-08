@@ -7,6 +7,8 @@ from stravalib.client import Client
 from .models import Users, Relationship
 import datetime
 
+from .race import Race
+
 
 client = Client()
 current_athlete = None
@@ -44,15 +46,21 @@ def race_statistics(request):
 
 
 def calc_race_data():
+    base_url = 'https://www.strava.com/activities/'
     total_distance = 0.0
-    total_races = 0  # off-by-one? Maybe change to 1. But doesnt make sense.
+    total_races = 0  # off-by-one?
     race_list = []
 
     for activity in client.get_activities():
         if activity.workout_type == '11':
             total_distance += float(activity.distance)
             total_races += 1
-            race_list.append(activity.name)
+
+            name = activity.name
+            url = base_url + str(activity.id)
+            formatted_date = get_activity_date(activity)
+
+            race_list.append(Race(name, url, formatted_date))
 
     # Convert distance from meters to miles and round
     total_distance = float("{0:.2f}".format(total_distance / 1609.34))
@@ -64,6 +72,11 @@ def calc_race_data():
     }
 
     return return_dict
+
+
+def get_activity_date(activity):
+    d = activity.start_date_local
+    return str(d.month) + '/' + str(d.day) + '/' + str(d.year)
 
 
 def welcome(request):

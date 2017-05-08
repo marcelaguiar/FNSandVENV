@@ -27,7 +27,7 @@
                 <h4>Race History</h4>
                 <ul>
                 {% for race in race_list %}
-                    <li>{{race}}</li>
+                    <li><span class="width-formatted">{{race.date}}</span><a href={{race.url}}>{{race.name}}</a></li>
                 {% endfor %}
                 </ul>
             </div>

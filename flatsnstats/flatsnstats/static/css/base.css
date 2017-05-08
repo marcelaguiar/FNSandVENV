@@ -22,6 +22,11 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
+.width-formatted {
+	float: left;
+	width: 100px;
+}
+
 .creator-credit {
   float: left;
   position: relative;
