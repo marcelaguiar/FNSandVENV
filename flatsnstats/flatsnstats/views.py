@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
 from stravalib.client import Client
-from .models import Users, Relationship
+from .models import Races, Relationship, Users
 import datetime
 
 from .race import Race
@@ -46,36 +46,89 @@ def race_statistics(request):
 
 
 def calc_race_data():
-    base_url = 'https://www.strava.com/activities/'
+    # ------------------------------------------------------------------------------------
+    # POPULATE NEW ACTIVITIES
     total_distance = 0.0
-    total_races = 0  # off-by-one?
-    race_list = []
+    total_races = 0
+    new_total_distance = 0.0
+    new_num_races = 0  # off-by-one?
 
-    for activity in client.get_activities():
+    try:
+        user_object = Users.objects.get(strava_id=current_id)  # factor out?
+        last_updated = getattr(user_object, "rs_last_updated")
+    except ObjectDoesNotExist:
+        print("ERROR: User doesn't exist. Look into this!")
+        return None
+
+    for activity in client.get_activities(after=last_updated):
         if activity.workout_type == '11':
-            total_distance += float(activity.distance)
-            total_races += 1
 
-            name = activity.name
-            url = base_url + str(activity.id)
-            formatted_date = get_activity_date(activity)
+            # TODO: Check if activity already exists in DB table for some reason
 
-            race_list.append(Race(name, url, formatted_date))
+            # Add to database
+            r = Races(activity_id=activity.id,
+                      user_id=current_id,
+                      date=activity.start_date_local,
+                      name=activity.name)
+            r.save()
+
+            new_total_distance += float(activity.distance)
+            new_num_races += 1
+
+    # Update total_distance and num_races in User table
+    try:
+        db_object = Users.objects.get(strava_id=current_id)
+        db_object.total_distance = F("total_distance") + new_total_distance
+        db_object.num_races = F("num_races") + new_num_races
+        db_object.save(update_fields=['total_distance', 'num_races'])
+    except Users.DoesNotExist:
+        print('ERROR: Well this is awkward, this should not have happened. #1')
+
+    # ------------------------------------------------------------------------------------
+    # GET ALL RACE DATA
+    try:
+        user_object = Users.objects.get(strava_id=current_id)
+        total_distance = getattr(user_object, "total_distance")
+        total_races = getattr(user_object, "num_races")
+    except ObjectDoesNotExist:
+        print("User does not exist for some reason")
 
     # Convert distance from meters to miles and round
     total_distance = float("{0:.2f}".format(total_distance / 1609.34))
 
-    return_dict = {
+    # Query for all races from this user
+    rs_qs = Races.objects.filter(user_id=current_id).order_by('-date')
+
+    race_list = []
+
+    # Loop through Queryset items
+    for race in rs_qs:
+        name = race.name
+        url = 'https://www.strava.com/activities/' + str(race.activity_id)
+        date = get_activity_date(race.date)
+
+        race_list.append(Race(name, url, date))
+
+    # Update User.rs_last_updated
+    try:
+        db_object = Users.objects.get(strava_id=current_id)
+        db_object.rs_last_updated = str(datetime.datetime.utcnow().isoformat()) + 'Z'
+        db_object.save(update_fields=['rs_last_updated'])
+    except Users.DoesNotExist:
+        print('ERROR: Well this is awkward, this shouldnt have happened. #1')
+    except Relationship.MultipleObjectsReturned:
+        print('ERROR: Well this is awkward, this shouldnt have happened. #2')
+
+    races_dict = {
         'total_race_mileage': total_distance,
         'num_races': total_races,
-        'race_list': race_list
+        'race_list': race_list,
     }
 
-    return return_dict
+    return races_dict
 
 
-def get_activity_date(activity):
-    d = activity.start_date_local
+def get_activity_date(d):
     return str(d.month) + '/' + str(d.day) + '/' + str(d.year)
 
 
@@ -108,7 +161,10 @@ def set_global_athlete(request):
                   first_name=current_athlete.firstname,
                   last_name=current_athlete.lastname,
                   authorized=True,
-                  ttp_last_updated="2000-01-01T00:00:00Z")
+                  ttp_last_updated="2000-01-01T00:00:00Z",
+                  rs_last_updated="2000-01-01T00:00:00Z",
+                  total_distance=0,
+                  num_races=0)
         u.save()
 
         user_authorized = True
@@ -135,7 +191,7 @@ def top_training_partners(request):
         'last_name': current_athlete.lastname,
         'profile_picture': current_athlete.profile,
         'training_partners': calc_top_training_partners(client, 1000),
-        'last_updated': get_last_updated(current_id)
+        'last_updated': get_last_updated(current_id, "ttp_last_updated")
     }
 
     return render(request, 'top_training_partners/index.html', athlete_data)
@@ -193,10 +249,10 @@ def calc_top_training_partners(c, num_results):
     return athlete_list
 
 
-def get_last_updated(user_id):
+def get_last_updated(user_id, attribute):
     try:
         db_object = Users.objects.get(strava_id=user_id)
-        last_updated = getattr(db_object, "ttp_last_updated")
+        last_updated = getattr(db_object, attribute)
     except ObjectDoesNotExist:
         last_updated = 'unknown'
         print('ERROR: Could not find user in database')
