@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ceb6e7c9-81c2-4755-b185-b0db30225532" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/static/javascript/year_calendar.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/db.sqlite3" afterPath="$PROJECT_DIR$/flatsnstats/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/flatsnstats/static/css/base.css" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/static/css/base.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/index.html" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flatsnstats/flatsnstats/views.py" afterPath="$PROJECT_DIR$/flatsnstats/flatsnstats/views.py" />
     </list>
     <ignored path="FNSandVENV.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,11 +36,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
+              <folding>
+                <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#377#383#0" expanded="true" />
+                <element signature="e#387#393#0" expanded="true" />
+                <element signature="e#524#530#0" expanded="true" />
+                <element signature="e#532#538#0" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="77" column="43" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="year_calendar.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/static/javascript/year_calendar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="69" column="75" selection-start-line="69" selection-start-column="75" selection-end-line="69" selection-end-column="75" />
+            <state relative-caret-position="-3014">
+              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -91,11 +129,12 @@
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/urls.py" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/Race.py" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html" />
-        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/static/css/base.css" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/index.html" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/models.py" />
-        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/index.html" />
         <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/views.py" />
+        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/static/css/base.css" />
+        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/year_calendar.js" />
+        <option value="$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/index.html" />
       </list>
     </option>
   </component>
@@ -303,6 +342,10 @@
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -325,10 +368,6 @@
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -341,11 +380,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\flatsnstats\static\img" />
+      <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\flatsnstats\static\javascript" />
       <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\flatsnstats\static" />
+      <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\flatsnstats\static\img" />
       <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\flatsnstats" />
       <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\flatsnstats\templates" />
-      <recent name="C:\Users\Marcel\Desktop\FNSandVENV\flatsnstats\welcome\static\img\1.1_connect_with_strava" />
     </key>
   </component>
   <component name="RunManager" selected="Python.clear_db">
@@ -526,7 +565,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1669107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -585,11 +624,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/static/img/1.1_connect_with_strava/light/light_large.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/static/img/1.1_connect_with_strava/light/light_small.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -742,20 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/static/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -785,26 +805,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3014">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/static/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/static/javascript/year_calendar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="77" column="43" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/templates/race_statistics/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state relative-caret-position="258">
+          <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
           <folding>
             <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="e#377#383#0" expanded="true" />
             <element signature="e#387#393#0" expanded="true" />
             <element signature="e#524#530#0" expanded="true" />
             <element signature="e#532#538#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flatsnstats/flatsnstats/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="69" column="75" selection-start-line="69" selection-start-column="75" selection-end-line="69" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

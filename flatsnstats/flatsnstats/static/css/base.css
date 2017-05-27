@@ -142,3 +142,42 @@ tr:nth-child(even) {
 #body-wrapper {
   margin: 20px 50px;
 }
+
+
+
+
+/************************Calendar stuff***************************/
+
+$calendar-textlabelcolor: #aaa;
+$calendar-bordercolor: #444;
+
+#calendar-container {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+svg {
+  width: 720px;
+  height: 110px;
+  // background: hsl(210,70%,85%);
+}
+
+.calendar-monthname {
+  font-size: 10px;
+  fill: $calendar-textlabelcolor;
+}
+
+.calendar-daylabel {
+  fill: $calendar-textlabelcolor;
+  font-size: 10px;
+  text-anchor: middle;
+}
+
+.calendar-day {
+}
+
+.calendar-day:hover {
+  stroke: $calendar-bordercolor;
+}
