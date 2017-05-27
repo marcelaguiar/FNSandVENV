@@ -9,28 +9,26 @@
         <h1 style="text-align:center;">Race Statistics</h1>
     </div>
     <div>
-        <div style="display:inline-block">
-            <div class="race-summary">
-                <h4>Summary</h4>
-                <table style="width:100%">
-                    <tr>
-                        <td>total race miles</td>
-                        <td>{{total_race_mileage}}</td>
-                    </tr>
-                    <tr>
-                        <td># of races</td>
-                        <td>{{num_races}}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="race-history">
-                <h4>Race History</h4>
-                <ul>
-                {% for race in race_list %}
-                    <li><span class="width-formatted">{{race.date}}</span><a href={{race.url}}>{{race.name}}</a></li>
-                {% endfor %}
-                </ul>
-            </div>
+        <div class="race-summary">
+            <h4>Summary</h4>
+            <table style="width: 10px;">
+                <tr>
+                    <td>total&nbsp;race&nbsp;miles</td>
+                    <td>{{total_race_mileage}}</td>
+                </tr>
+                <tr>
+                    <td>#&nbsp;of&nbsp;races</td>
+                    <td>{{num_races}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="race-history">
+            <h4>Race History</h4>
+            <ul>
+            {% for race in race_list %}
+                <li><span class="width-formatted">{{race.date}}</span><a href={{race.url}}>{{race.name}}</a></li>
+            {% endfor %}
+            </ul>
         </div>
     </div>
 </div>

@@ -53,6 +53,7 @@ def calc_race_data():
     new_total_distance = 0.0
     new_num_races = 0  # off-by-one?
 
+    # Get rs_last_updated
     try:
         user_object = Users.objects.get(strava_id=current_id)  # factor out?
         last_updated = getattr(user_object, "rs_last_updated")
@@ -60,10 +61,16 @@ def calc_race_data():
         print("ERROR: User doesn't exist. Look into this!")
         return None
 
+    # Loop through new race activities and add to DB
+    # for activity in [x for x in client.get_activities(after=last_updated) if x.workout_type == '11']:
     for activity in client.get_activities(after=last_updated):
         if activity.workout_type == '11':
 
-            # TODO: Check if activity already exists in DB table for some reason
+            # Check if activity already exists in DB table for some reason
+            exists = Races.objects.filter(activity_id=activity.id).exists()
+            if exists is True:
+                print("Race activity already in db...INVESTIGATE")
+                continue
 
             # Add to database
             r = Races(activity_id=activity.id,
@@ -87,7 +94,7 @@ def calc_race_data():
     # ------------------------------------------------------------------------------------
     # GET ALL RACE DATA
     try:
-        user_object = Users.objects.get(strava_id=current_id)
+        user_object = Users.objects.get(strava_id=current_id) # Delete line? already done above.
         total_distance = getattr(user_object, "total_distance")
         total_races = getattr(user_object, "num_races")
     except ObjectDoesNotExist:
