@@ -8,3 +8,7 @@ Welcome:
 Strava authorization:
 
 ![first capture](/README_IMAGES/auth_redirect.PNG?raw=true "Strava authorization page")
+
+Race Results:
+
+![first capture](/README_IMAGES/race_results.PNG?raw=true "Race results page")
