@@ -149,7 +149,6 @@ tr:nth-child(even) {
 /************************Calendar stuff***************************/
 
 $calendar-textlabelcolor: #aaa;
-$calendar-bordercolor: #444;
 
 #calendar-container {
   display: block;
@@ -179,5 +178,5 @@ svg {
 }
 
 .calendar-day:hover {
-  stroke: $calendar-bordercolor;
+  stroke: #444;
 }

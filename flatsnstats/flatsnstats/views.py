@@ -15,8 +15,18 @@ current_athlete = None
 current_id = None
 
 
-def strava_site(request):
-    return redirect(settings.STRAVA_AUTH_URL)
+# ------------------------------------------------------------------------------
+# VIEWS
+# ------------------------------------------------------------------------------
+
+
+def welcome(request):
+    return render(request, 'welcome/index.html')
+
+
+def temporary_redirect(request):
+    set_global_athlete(request)
+    return redirect('/')
 
 
 def home(request):
@@ -31,23 +41,37 @@ def home(request):
     return render(request, 'index.html', athlete_data)
 
 
-def fastest_segments(request):
-    return render(request, 'fastest_segments/index.html')
-
-
-def most_ridden_segments(request):
-    return render(request, 'most_ridden_segments/index.html')
-
-
 def race_statistics(request):
     race_data = calc_race_data()
 
     return render(request, 'race_statistics/index.html', race_data)
 
 
+def top_training_partners(request):
+
+    athlete_data = {
+        'id': current_athlete.id,
+        'first_name': current_athlete.firstname,
+        'last_name': current_athlete.lastname,
+        'profile_picture': current_athlete.profile,
+        'training_partners': calc_top_training_partners(client, 100),
+        'last_updated': get_last_updated(current_id, "ttp_last_updated")
+    }
+
+    return render(request, 'top_training_partners/index.html', athlete_data)
+
+
+def ajax_test(request):
+    return render(request, 'ajax_test/index.html')
+
+
+# -----------------------------------------------------------------------------
+# CALC / HELPERS
+# -----------------------------------------------------------------------------
+
+
 def calc_race_data():
-    # ------------------------------------------------------------------------------------
-    # POPULATE NEW ACTIVITIES
+    # POPULATE NEW ACTIVITIES -------------------------------------------------
     total_distance = 0.0
     total_races = 0
     new_total_distance = 0.0
@@ -91,10 +115,9 @@ def calc_race_data():
     except Users.DoesNotExist:
         print('ERROR: Well this is awkward, this should not have happened. #1')
 
-    # ------------------------------------------------------------------------------------
-    # GET ALL RACE DATA
+    # GET ALL RACE DATA -------------------------------------------------------
     try:
-        user_object = Users.objects.get(strava_id=current_id) # Delete line? already done above.
+        user_object = Users.objects.get(strava_id=current_id)  # Delete line? already done above.
         total_distance = getattr(user_object, "total_distance")
         total_races = getattr(user_object, "num_races")
     except ObjectDoesNotExist:
@@ -122,9 +145,9 @@ def calc_race_data():
         db_object.rs_last_updated = str(datetime.datetime.utcnow().isoformat()) + 'Z'
         db_object.save(update_fields=['rs_last_updated'])
     except Users.DoesNotExist:
-        print('ERROR: Well this is awkward, this shouldnt have happened. #1')
+        print('ERROR: Well this is awkward. This should not have happened. #1')
     except Relationship.MultipleObjectsReturned:
-        print('ERROR: Well this is awkward, this shouldnt have happened. #2')
+        print('ERROR: Well this is awkward. This should not  have happened. #2')
 
     races_dict = {
         'total_race_mileage': total_distance,
@@ -137,10 +160,6 @@ def calc_race_data():
 
 def get_activity_date(d):
     return str(d.month) + '/' + str(d.day) + '/' + str(d.year)
-
-
-def welcome(request):
-    return render(request, 'welcome/index.html')
 
 
 def get_access_token(request):
@@ -185,29 +204,9 @@ def set_global_athlete(request):
         u.save()
 
 
-def temporary_redirect(request):
-    set_global_athlete(request)
-    return redirect('/')
-
-
-def top_training_partners(request):
-
-    athlete_data = {
-        'id': current_athlete.id,
-        'first_name': current_athlete.firstname,
-        'last_name': current_athlete.lastname,
-        'profile_picture': current_athlete.profile,
-        'training_partners': calc_top_training_partners(client, 1000),
-        'last_updated': get_last_updated(current_id, "ttp_last_updated")
-    }
-
-    return render(request, 'top_training_partners/index.html', athlete_data)
-
-
 # TODO: Probably shouldn't even have to pass in client (c)
 def calc_top_training_partners(c, num_results):
 
-    # TODO: Add Progress bar for calc function
     athlete_list = []
 
     try:
@@ -244,9 +243,9 @@ def calc_top_training_partners(c, num_results):
         db_object.ttp_last_updated = str(datetime.datetime.utcnow().isoformat()) + 'Z'
         db_object.save(update_fields=['ttp_last_updated'])
     except Users.DoesNotExist:
-        print('ERROR: Well this is awkward, this shouldnt have happened. #1')
+        print('ERROR: Well this is awkward. This should not have happened. #1')
     except Relationship.MultipleObjectsReturned:
-        print('ERROR: Well this is awkward, this shouldnt have happened. #2')
+        print('ERROR: Well this is awkward. This should not have happened. #2')
 
     ttp_qs = Relationship.objects.filter(user1=current_id).order_by('-ra_count')[:num_results]
 

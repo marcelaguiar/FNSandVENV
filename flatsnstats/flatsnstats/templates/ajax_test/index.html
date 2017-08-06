@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+    <div align="center">
+        <!-- Header -->
+        <h1 style="text-align:center;">Ajax Test</h1>
+        <button id="ajax-button" type="button" onclick="loadDoc()">Change Content</button>
+        <div id="yee">yee</div>
+    </div>
+
+<script src="{% static 'javascript/ajax_call.js' %}"></script>
+{% endblock %}
