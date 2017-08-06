@@ -22,12 +22,16 @@
             <a href="{% url 'top_training_partners' %}"><span class="widget-link"></span></a>
             <div class="ride-partners">
                 <h4>Top Training Partners</h4>
-                <ol>
-                {% for rider in training_partners %}
+                <!--<ol>
+                Replace this Django with Javascript
+                Django: for rider in training_partners
                     <li>{{rider}}</li>
-                {% endfor %}
+                Django: endfor
                     <li>...</li>
-                </ol>
+                </ol>-->
+                <div id="partner-list-preview">
+
+                </div>
             </div>
         </div>
         <div class="widget" style="position:relative">
@@ -50,4 +54,6 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'javascript/main_logic.js' %}"></script>
 {% endblock %}
